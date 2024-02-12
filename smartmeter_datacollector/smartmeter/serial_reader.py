@@ -8,8 +8,10 @@
 from dataclasses import dataclass
 from typing import Callable
 
+import logging
 import aioserial
 
+LOGGER = logging.getLogger("smartmeter")
 from .reader import Reader, ReaderError
 
 
@@ -41,5 +43,8 @@ class SerialReader(Reader):
 
     async def start_and_listen(self) -> None:
         while True:
-            data: bytes = await self._serial.read_until_async(self._termination, None)
-            self._callback(data)
+            try:
+                data: bytes = await self._serial.read_until_async(self._termination, None)
+                self._callback(data)
+            except Exception as ex:
+                LOGGER.fatal("Something went wrong while waiting for data %s", ex)

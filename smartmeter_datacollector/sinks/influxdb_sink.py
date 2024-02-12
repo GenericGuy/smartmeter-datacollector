@@ -45,7 +45,7 @@ class InfluxdbSink(DataSink):
 
     async def send(self, data_point: MeterDataPoint) -> None:
         try:
-            point = Point(data_point.type.identifier).field(data_point.type.unit, data_point.value)
+            point = Point(data_point.type.identifier).tag("unit", data_point.type.unit).field("value", data_point.value)
             self._write_api.write(bucket=self._bucket, org=self._client.org, record=point)
         except:
             print("Error submitting locally")
