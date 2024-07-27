@@ -6,6 +6,7 @@
 # See LICENSES/README.md for more information.
 #
 import logging
+import math
 from datetime import datetime, timezone
 from typing import Any, List, Optional, Tuple
 
@@ -135,8 +136,13 @@ class HdlcDlmsParser:
             self._use_system_time = True
             timestamp = datetime.now(timezone.utc)
 
-        # convert to UTC format
-        timestamp = timestamp.astimezone(timezone.utc)
+        # Ignore timestamps from above and round system time to 10 second precision
+        timestamp = datetime.utcnow().replace(microsecond=0)
+        timestamp = timestamp.replace(second=int(math.floor(timestamp.second / 10.0) * 10))
+
+        if not timestamp.tzinfo:
+            # if timezone info not set, assume UTC
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
 
         # Extract register data
         data_points: List[MeterDataPoint] = []

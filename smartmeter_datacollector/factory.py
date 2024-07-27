@@ -12,7 +12,7 @@ from typing import List
 from .collector import Collector
 from .config import InvalidConfigError
 from .sinks.data_sink import DataSink
-from .sinks.influxdb_sink import InfluxdbConfig, InfluxdbSink
+from .sinks.influxdb_p110_sink import InfluxdbP110Config, InfluxdbP110Sink
 from .sinks.logger_sink import LoggerSink
 from .sinks.mqtt_sink import MqttConfig, MqttDataSink
 from .smartmeter.iskraam550 import IskraAM550
@@ -86,8 +86,8 @@ def build_sinks(config: ConfigParser) -> List[DataSink]:
             mqtt_config = MqttConfig.from_sink_config(sink_config)
             sinks.append(MqttDataSink(mqtt_config))
         elif sink_type == "influxdb":
-            influxdb_config = InfluxdbConfig.from_sink_config(sink_config)
-            sinks.append(InfluxdbSink(influxdb_config))
+            influxdb_config = InfluxdbP110Config.from_sink_config(sink_config)
+            sinks.append(InfluxdbP110Sink(influxdb_config))
         else:
             raise InvalidConfigError(f"'type' is invalid or missing: {sink_type}")
     return sinks

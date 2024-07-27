@@ -142,3 +142,6 @@ cython_debug/
 # IDEs
 .vscode
 .idea
+
+# Don't tell my secrets
+config.ini

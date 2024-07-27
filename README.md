@@ -1,3 +1,10 @@
+# About this repo
+
+This is my personal fork for the smart meter data collector.
+Initially I just added a sink for InfluxDB (see 1st commit if that's what you're after), but I later added synchronous posting of data from a smartplug.
+It's not pretty, but it's the simplest way to keep the data from the smartmeter in sync with the smartplug data.
+
+
 # Smart Meter Data Collector
 
 <p align="center">

@@ -9,6 +9,7 @@ asyncio-mqtt = "~=0.16.2"
 gurux-dlms = "==1.0.150"
 paho-mqtt = "~=1.6.1"
 influxdb-client = "~=1.44.0"
+pyp100 = {ref = "main", git = "git+https://github.com/almottier/TapoP100.git"}
 
 [dev-packages]
 autopep8 = "*"
